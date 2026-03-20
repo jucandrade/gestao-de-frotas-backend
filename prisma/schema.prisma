@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Company {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Dados da Empresa
+  companyCode String?
+  companyName String
+  tradeName   String?
+  empCodFW    String?
+  branchCode  String?
+
+  // Dados Fiscais
+  cnpj                   String  @unique
+  stateRegistration      String?
+  municipalRegistration  String?
+  cnae                   String?
+  taxRegime              String?
+
+  // Endereço
+  zipCode     String?
+  streetType  String?
+  streetName  String?
+  number      String?
+  complement  String?
+  neighborhood String?
+  cityCode    String?
+  cityName    String?
+  state       String?
+  stateCode   String?
+  country     String?
+  fullAddress String?
+
+
+  // Contato
+  phone        String?
+  contactName  String?
+  whatsapp     String?
+  email        String?
+
+  @@map("companies")
+}
