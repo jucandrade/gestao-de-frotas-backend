@@ -11,6 +11,7 @@ RUN npm ci
 
 COPY . .
 
+# prisma generate + nest build
 RUN npm run build
 
 # ── Production stage ─────────────────────────────────────────
@@ -22,7 +23,11 @@ COPY package.json package-lock.json ./
 COPY prisma ./prisma/
 COPY prisma.config.ts ./
 
-RUN npm ci --omit=dev && npx prisma generate
+RUN npm ci --omit=dev
+
+# Copia o Prisma Client já gerado no builder (não precisa de DATABASE_URL)
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+COPY --from=builder /app/node_modules/@prisma/client ./node_modules/@prisma/client
 
 COPY --from=builder /app/dist ./dist
 
