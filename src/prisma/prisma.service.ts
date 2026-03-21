@@ -9,14 +9,12 @@ export class PrismaService
   implements OnModuleInit, OnModuleDestroy
 {
   constructor() {
-    const connectionString = process.env.DATABASE_URL ?? '';
-    // Railway exige SSL; adiciona sslmode=require se ainda não estiver na URL
-    const hasSSL = connectionString.includes('sslmode');
     const pool = new pg.Pool({
-      connectionString,
-      ssl: process.env.NODE_ENV === 'production' || !hasSSL
-        ? { rejectUnauthorized: false }
-        : false,
+      connectionString: process.env.DATABASE_URL,
+      ssl:
+        process.env.NODE_ENV === 'production'
+          ? { rejectUnauthorized: false }
+          : false,
     });
     const adapter = new PrismaPg(pool);
     super({ adapter });
