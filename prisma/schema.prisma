@@ -48,3 +48,108 @@ model Company {
 
   @@map("companies")
 }
+
+model Vehicle {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  plate        String    @unique
+  chassis      String?
+  prefix       String?
+  manufacturer String?
+  model        String?
+  year         Int?
+  color        String?
+  fuel         String?
+  renavam      String?
+  status       String    @default("Ativo")
+
+  customerId   String?
+  customer     Customer? @relation(fields: [customerId], references: [id])
+
+  @@map("vehicles")
+}
+
+model UserProfile {
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  name        String   @unique
+  description String?
+
+  // Permissões por módulo: { "companies": { "view": true, "create": false, ... }, ... }
+  permissions Json     @default("{}")
+
+  users       User[]
+
+  @@map("user_profiles")
+}
+
+model User {
+  id           String      @id @default(uuid())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  name         String
+  email        String      @unique
+  cpf          String?     @unique
+  mobile       String?
+  passwordHash String
+
+  profileId    String
+  profile      UserProfile @relation(fields: [profileId], references: [id])
+
+  @@map("users")
+}
+
+model Customer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastVisit DateTime?
+  status    String   @default("Ativo")
+
+  code                  String?
+  name                  String
+  tradeName             String?
+  type                  String?
+  cpf                   String?  @unique
+  cnpj                  String?  @unique
+  stateRegistration     String?
+  ieIndicator           String?
+  originCode            String?
+  origin                String?
+  mainContact           String?
+  email                 String?
+  phone                 String?
+  commercialPhone       String?
+  mobile                String?
+  whatsapp              String?
+  allowWhatsapp         Boolean  @default(false)
+  allowEmail            Boolean  @default(false)
+  allowSMS              Boolean  @default(false)
+  allowPhone            Boolean  @default(false)
+  zipCode               String?
+  street                String?
+  number                String?
+  complement            String?
+  neighborhood          String?
+  city                  String?
+  state                 String?
+  cityCode              String?
+  country               String?
+  occupationCode        String?
+  occupation            String?
+  discountPercentage    Float?
+  paymentMethod         String?
+  paymentCondition      String?
+  clientType            String?
+  clientTypeDescription String?
+  observations          String?
+
+  vehicles              Vehicle[]
+
+  @@map("customers")
+}
