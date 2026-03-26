@@ -5,6 +5,9 @@ buildCommand = "npm install && npm run build"
 [build.nixpacksPlan.variables]
 NIXPACKS_NODE_VERSION = "22"
 
+[variables]
+NIXPACKS_NODE_VERSION = "22.15"
+
 [deploy]
 startCommand = "npx prisma migrate deploy && node dist/main.js"
 healthcheckPath = "/"
