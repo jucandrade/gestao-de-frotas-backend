@@ -1,8 +1,13 @@
 require('dotenv/config');
 const { PrismaClient } = require('@prisma/client');
+const { PrismaPg } = require('@prisma/adapter-pg');
+const pg = require('pg');
 const crypto = require('crypto');
 
-const prisma = new PrismaClient();
+const connectionString = process.env.DATABASE_URL ?? '';
+const pool = new pg.Pool({ connectionString, ssl: { rejectUnauthorized: false } });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 function hashPassword(password) {
   return crypto.createHash('sha256').update(password).digest('hex');
