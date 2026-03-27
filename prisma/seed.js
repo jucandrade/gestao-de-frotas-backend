@@ -36,4 +36,7 @@ async function main() {
 
 main()
   .catch((e) => { console.error('SEED ERROR:', e.message); })
-  .finally(() => prisma.$disconnect());
+  .finally(async () => {
+    await prisma.$disconnect();
+    await pool.end();
+  });
