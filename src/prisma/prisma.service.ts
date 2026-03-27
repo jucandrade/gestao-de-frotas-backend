@@ -33,8 +33,16 @@ export class PrismaService
   }
 
   async onModuleInit() {
-    await this.$connect();
-    this.logger.log('Banco de dados conectado com sucesso');
+    try {
+      await this.$connect();
+      this.logger.log('Banco de dados conectado com sucesso');
+    } catch (error) {
+      const err = error as Error;
+      this.logger.error(
+        `Falha ao conectar no banco durante startup: ${err.message}`,
+        err.stack,
+      );
+    }
   }
 
   async onModuleDestroy() {
