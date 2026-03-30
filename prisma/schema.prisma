@@ -153,3 +153,73 @@ model Customer {
 
   @@map("customers")
 }
+
+model Supplier {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Dados do Fornecedor
+  code              String?
+  name              String
+  tradeName         String?
+  supplierType      String?
+  contactName       String?
+  quotationContact  String?
+
+  // Documentos
+  personType        String?
+  cnpj              String?  @unique
+  cpf               String?  @unique
+  stateRegistration String?
+  ieIndicator       String?
+  rg                String?
+
+  // Endereço
+  zipCode           String?
+  streetType        String?
+  street            String?
+  number            String?
+  complement        String?
+  neighborhood      String?
+  city              String?
+  state             String?
+  stateName         String?
+  email             String?
+
+  // Telefones
+  phone             String?
+  phone2            String?
+  mobile            String?
+  fax               String?
+
+  // Financeiro
+  paymentCondition  String?
+  paymentDescription String?
+  discountPercentage Float?
+  site              String?
+  observations      String?
+
+  contacts          SupplierContact[]
+
+  @@map("suppliers")
+}
+
+model SupplierContact {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sequence    Int?
+  name        String
+  positionCode String?
+  positionDescription String?
+  phone       String?
+  email       String?
+  active      Boolean @default(true)
+
+  supplierId  String
+  supplier    Supplier @relation(fields: [supplierId], references: [id], onDelete: Cascade)
+
+  @@map("supplier_contacts")
+}

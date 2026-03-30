@@ -6,6 +6,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CompaniesModule } from './companies/companies.module';
 import { CustomersModule } from './customers/customers.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { SupplierContactsModule } from './supplier-contacts/supplier-contacts.module';
 import { UserProfilesModule } from './user-profiles/user-profiles.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
@@ -17,6 +19,8 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
     CompaniesModule,
     CustomersModule,
     VehiclesModule,
+    SuppliersModule,
+    SupplierContactsModule,
     UserProfilesModule,
     UsersModule,
     AuthModule,
