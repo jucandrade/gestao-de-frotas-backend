@@ -57,6 +57,13 @@ npx prisma generate
 npm run build
 ```
 
+### 9. Atualizar Chat SYSTEM_PROMPT
+Adicione o novo módulo na constante `SYSTEM_PROMPT` em `src/chat/chat.service.ts`, na seção "Módulos disponíveis no sistema:", com o formato:
+```
+- **Nome do Módulo** (/rota) – Descrição breve da funcionalidade.
+```
+Ver instrução completa: [update-chat-prompt](../../instructions/update-chat-prompt.instructions.md)
+
 ## Checklist
 - [ ] Modelo Prisma criado com UUID + timestamps + @@map
 - [ ] Migration rodada com sucesso
@@ -64,4 +71,5 @@ npm run build
 - [ ] Service com tratamento de erro P2002
 - [ ] Controller fino delegando ao service
 - [ ] Módulo registrado no AppModule
+- [ ] SYSTEM_PROMPT do chat atualizado com o novo módulo
 - [ ] Build sem erros
