@@ -150,6 +150,7 @@ model Customer {
   observations          String?
 
   vehicles              Vehicle[]
+  contracts             Contract[]
 
   @@map("customers")
 }
@@ -234,4 +235,68 @@ model IntegrationSetting {
   enabled   Boolean  @default(false)
 
   @@map("integration_settings")
+}
+
+model Contract {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contractNumber    Int?
+  customerId        String?
+  customer          Customer? @relation(fields: [customerId], references: [id])
+  customerName      String?
+  startDate         DateTime?
+  endDate           DateTime?
+
+  contractType      String?
+  contractYear      Int?
+  extraCodeDRAC     String?
+  deliveryLocation  String?
+
+  // Valores financeiros
+  totalValue        Float    @default(0)
+  generalBalance    Float    @default(0)
+  productPercentage Float    @default(0)
+  productValue      Float    @default(0)
+  servicePercentage Float    @default(0)
+  serviceValue      Float    @default(0)
+
+  // Reservas
+  reserved          Float    @default(0)
+  reserveBalance    Float    @default(0)
+  reservedProduct   Float    @default(0)
+  usedProduct       Float    @default(0)
+  reservedService   Float    @default(0)
+  usedService       Float    @default(0)
+
+  items             ContractItem[]
+
+  @@map("contracts")
+}
+
+model ContractItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ctoAcronym        String?
+  ctoName           String?
+  productPercentage Float    @default(0)
+  servicePercentage Float    @default(0)
+  value             Float    @default(0)
+  reserved          Float    @default(0)
+  productReserve    Float    @default(0)
+  usedProduct       Float    @default(0)
+  productBalance    Float    @default(0)
+  serviceReserve    Float    @default(0)
+  usedService       Float    @default(0)
+  serviceBalance    Float    @default(0)
+  balance           Float    @default(0)
+  ctoCategory       String?
+
+  contractId        String
+  contract          Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+
+  @@map("contract_items")
 }

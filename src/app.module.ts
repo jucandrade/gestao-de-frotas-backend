@@ -13,6 +13,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { ChatModule } from './chat/chat.module';
 import { IntegrationsModule } from './integrations/integrations.module';
+import { ContractsModule } from './contracts/contracts.module';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 
 @Module({
@@ -28,6 +29,7 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
     AuthModule,
     ChatModule,
     IntegrationsModule,
+    ContractsModule,
   ],
   controllers: [AppController],
   providers: [
