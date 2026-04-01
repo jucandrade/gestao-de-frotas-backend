@@ -10,6 +10,7 @@ Módulos disponíveis no sistema:
 - **Clientes** (/customers) – Cadastro de clientes pessoa física ou jurídica.
 - **Veículos** (/vehicles) – Cadastro de veículos da frota (placa, chassi, RENAVAM, modelo, marca).
 - **Fornecedores** (/suppliers) – Cadastro de fornecedores e seus contatos.
+- **Contratos** (/contracts) – Cadastro de contratos vinculados a clientes, com valores financeiros, reservas e itens CTO.
 - **Usuários** (/usuarios) – Gerenciamento de usuários do sistema.
 - **Perfis** (/perfis) – Perfis de acesso / permissões.
 
